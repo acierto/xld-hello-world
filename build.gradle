@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-819.1118")
+    }
+}
+
+plugins {
+    id 'scala'
+    id 'idea'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+apply plugin: "integration.server"
+
+
+integrationServer {
+    servers {
+        controlPlane {
+            dockerImage = "xebialabs/xl-deploy"
+            version = "10.2.2"
+            httpPort = 4516
+            yamlPatches = [
+                    'centralConfiguration/deploy-server.yaml': [
+                            'deploy.server.label': 'Deploy Hello World'
+                    ]
+            ]
+        }
+    }
+}
+
+rootProject.afterEvaluate {
+    startIntegrationServer.dependsOn(build)
+}
+
+idea {
+    module {
+        excludeDirs += file('build')
+    }
+}
