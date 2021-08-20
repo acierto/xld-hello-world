@@ -1,13 +1,11 @@
 buildscript {
     repositories {
-        mavenLocal()
-        mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
     }
     dependencies {
-        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-819.1118")
+        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-820.1249")
     }
 }
 
@@ -19,7 +17,6 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    gradlePluginPortal()
 }
 
 apply plugin: "integration.server"
