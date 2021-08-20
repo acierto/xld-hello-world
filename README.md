@@ -33,6 +33,29 @@ integrationServer {
 }
 ```
 
+which is enabled by applying the plugin by 
+
+```groovy
+apply plugin: "integration.server"
+```
+
+To be able to use it you have to have it in a classpath
+
+```groovy
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-820.1249") // Check in your case what is the latest version now.
+    }
+}
+```
+
+The brief explanation of each property for `integrationServer`:
+
 | Name | Description | 
 | :---: | :---: |
 `servers` | section describes all servers that you can run. Currently only the first one will take an effect, and the rest will be ignored.
@@ -40,10 +63,7 @@ integrationServer {
 `dockerImage` | presence of this property makes the setup of Deploy be a container based, which will be pulled from the specified docker repository.
 `version` | here you specify the version of Deploy you want to spin up. 
 `httpPort` | is an optional field, if you don't specify it, the random port will be used. It's a good option when you run several tests in parallel on the same computer, and you don't want them to clash by using the same port.
-`yamlPatches` | here you can apply overrides to a default files. Very handy in case you have to modify several fields only.
-
-If you have to modify a lot of properties, it is better to use `overlays` and provide a complete file. More about it 
-you can check in plugin docs: https://github.com/xebialabs/integration-server-gradle-plugin
+`yamlPatches` | here you can apply overrides to a default files. Very handy in case you have to modify several fields only. If you have to modify the complete property file, it is better to use `overlays` and provide a complete file. More about it  you can check in plugin docs: https://github.com/xebialabs/integration-server-gradle-plugin
 
 The server label, which is displayed on a top navigation bar is possible to configure in `deploy-server.yaml` which
 is a part of central configuration.
