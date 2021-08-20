@@ -8,7 +8,7 @@ running and as a bonus to see "Deploy Hello World" on a top navigation bar :)
 
 The configuration how to run Gradle task, can be found in `.gradle/workflows/build.yaml`.
 
-If you are going to configure it on a bare metal, you have to be sure you next the things installed:
+If you are going to configure it on a bare VM, you have to be sure you have the next things installed:
 
 * Java 11
 * Docker
@@ -33,22 +33,15 @@ integrationServer {
 }
 ```
 
-`servers` - section describes all servers that you can run. Currently only the first one will take an effect,
- and the rest will be ignored.
+| Name | Description | 
+| :---: | :---: |
+`servers` | section describes all servers that you can run. Currently only the first one will take an effect, and the rest will be ignored.
+`controlPlane` | is the name of this server. This name won't be visible anywhere, you only have to specify it if you have  to read the configuration somewhere in gradle code. Like for example if you defined your own Gradle task below, and you want  to pass there the server http port, you can do it as: `integrationServer.server.controlPlane.httpPort`  
+`dockerImage` | presence of this property makes the setup of Deploy be a container based, which will be pulled from the specified docker repository.
+`version` | here you specify the version of Deploy you want to spin up. 
+`httpPort` | is an optional field, if you don't specify it, the random port will be used. It's a good option when you run several tests in parallel on the same computer, and you don't want them to clash by using the same port.
+`yamlPatches` | here you can apply overrides to a default files. Very handy in case you have to modify several fields only.
 
-`controlPlane` - is the name of this server. This name won't be visible anywhere, you only have to specify it if you have
-to read the configuration somewhere in gradle code. Like for example if you defined your own Gradle task below, and you want 
-to pass there the server http port, you can do it as: `integrationServer.server.controlPlane.httpPort`
-
-`dockerImage` - presence of this property makes the setup of Deploy be a container based, which will be pulled from the specified 
-docker repository.
-
-`version` - here you specify the version of Deploy you want to spin up. 
-
-`httpPort` - is an optional field, if you don't specify it, the random port will be used. It's a good option when you run
-several tests in parallel on the same computer, and you don't want them to clash by using the same port.
-
-`yamlPatches` - here you can apply overrides to a default files. Very handy in case you have to modify several fields only.
 If you have to modify a lot of properties, it is better to use `overlays` and provide a complete file. More about it 
 you can check in plugin docs: https://github.com/xebialabs/integration-server-gradle-plugin
 
