@@ -78,3 +78,6 @@ You have to go instead to a http://localhost:4516 as this redirection is configu
 
 One of the options how you can shut down the running docker image and unmount all volumes is to run this command:
 `./gradlew shutdownIntegrationServer`.
+
+Docker based setup uses End User License Agreement, you can read more about it here: https://hub.docker.com/r/xebialabs/xl-deploy/.
+The license of this docker container will be valid only for 7 days after the downloading.
