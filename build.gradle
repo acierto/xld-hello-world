@@ -24,7 +24,6 @@ repositories {
 
 apply plugin: "integration.server"
 
-
 integrationServer {
     servers {
         controlPlane {
