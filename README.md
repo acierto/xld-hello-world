@@ -14,13 +14,43 @@ If you are going to configure it on a bare metal, you have to be sure you next t
 * Docker
 * Docker Compose 
 
-Deploy will be running in a docker container and by these properties you can configure from which repository to 
-pull it from and which version to use:
+The main piece of integration server configuration is specified in this block in `build.gradle` file:
 
 ```groovy
-dockerImage = "xebialabs/xl-deploy"
-version = "10.2.2"
+integrationServer {
+    servers {
+        controlPlane {
+            dockerImage = "xebialabs/xl-deploy"
+            version = "10.2.2"
+            httpPort = 4516
+            yamlPatches = [
+                    'centralConfiguration/deploy-server.yaml': [
+                            'deploy.server.label': 'Deploy Hello World'
+                    ]
+            ]
+        }
+    }
+}
 ```
+
+`servers` - section describes all servers that you can run. Currently only the first one will take an effect,
+ and the rest will be ignored.
+
+`controlPlane` - is the name of this server. This name won't be visible anywhere, you only have to specify it if you have
+to read the configuration somewhere in gradle code. Like for example if you defined your own Gradle task below, and you want 
+to pass there the server http port, you can do it as: `integrationServer.server.controlPlane.httpPort`
+
+`dockerImage` - presence of this property makes the setup of Deploy be a container based, which will be pulled from the specified 
+docker repository.
+
+`version` - here you specify the version of Deploy you want to spin up. 
+
+`httpPort` - is an optional field, if you don't specify it, the random port will be used. It's a good option when you run
+several tests in parallel on the same computer, and you don't want them to clash by using the same port.
+
+`yamlPatches` - here you can apply overrides to a default files. Very handy in case you have to modify several fields only.
+If you have to modify a lot of properties, it is better to use `overlays` and provide a complete file. More about it 
+you can check in plugin docs: https://github.com/xebialabs/integration-server-gradle-plugin
 
 The server label, which is displayed on a top navigation bar is possible to configure in `deploy-server.yaml` which
 is a part of central configuration.
