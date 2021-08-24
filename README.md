@@ -54,6 +54,8 @@ buildscript {
 }
 ```
 
+To run the example, execute this command: `./gradlew clean startIntegrationServer ` 
+
 The brief explanation of each property for `integrationServer`:
 
 | Name | Description | 
