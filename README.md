@@ -6,7 +6,7 @@ running and as a bonus to see "Deploy Hello World" on a top navigation bar :)
 
 ![Deploy 10.2.2](./pics/deploy-10.2.2.png)
 
-The configuration how to run Gradle task, can be found in `.gradle/workflows/build.yaml`.
+The configuration how to run Gradle task, can be found in `.github/workflows/build.yaml`.
 
 If you are going to configure it on a bare VM, you have to be sure you have the next things installed:
 
@@ -49,7 +49,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-820.1249") // Check in your case what is the latest version now.
+        classpath("com.xebialabs.gradle.plugins:integration-server-gradle-plugin:10.3.0-902.1430") // Check in your case what is the latest version now.
     }
 }
 ```
