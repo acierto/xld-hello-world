@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenLocal()
         maven {
+            url 'https://nexus.xebialabs.com/nexus/content/repositories/digitalai-public'
+        }
+        maven {
             url 'https://oss.sonatype.org/service/local/repositories/releases/content'
         }
         maven {
